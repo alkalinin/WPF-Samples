@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="Helix.SharpDX.WPF.NavigationDemo.Views.Pages.Plot3DPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hx="http://helix-toolkit.org/wpf/SharpDX"
+    xmlns:local="clr-namespace:Helix.SharpDX.WPF.NavigationDemo.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Plot3DPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel>
+            <Label
+                Padding="0,5,5,5"
+                Content="PLOT 3D"
+                FontWeight="Bold" />
+            <hx:Viewport3DX
+                x:Name="view3D"
+                Grid.Row="1"
+                BackgroundColor="White"
+                Camera="{Binding Camera}"
+                EffectsManager="{Binding EffectsManager}"
+                EnableDesignModeRendering="True"
+                EnableSwapChainRendering="False"
+                FXAALevel="Low"
+                ModelUpDirection="{Binding UpDirection}"
+                ShowCoordinateSystem="True"
+                UseDefaultGestures="False">
+                <hx:Viewport3DX.InputBindings>
+                    <MouseBinding Command="hx:ViewportCommands.Rotate" Gesture="RightClick" />
+                    <MouseBinding Command="hx:ViewportCommands.Zoom" Gesture="MiddleClick" />
+                    <MouseBinding Command="hx:ViewportCommands.Pan" Gesture="LeftClick" />
+                </hx:Viewport3DX.InputBindings>
+                <hx:AmbientLight3D Color="Gray" />
+                <hx:DirectionalLight3D Direction="{Binding Camera.LookDirection}" Color="White" />
+
+                <hx:MeshGeometryModel3D
+                    x:Name="model"
+                    Geometry="{Binding Model}"
+                    Material="{Binding ModelMaterial}"
+                    Transform="{Binding ModelTransform}" />
+            </hx:Viewport3DX>
+        </StackPanel>
+    </Grid>
+</Page>
