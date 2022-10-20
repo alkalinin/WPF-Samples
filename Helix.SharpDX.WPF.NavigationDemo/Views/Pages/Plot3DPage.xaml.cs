@@ -1,4 +1,5 @@
 ﻿using Helix.SharpDX.WPF.NavigationDemo.ViewModels;
+using HelixToolkit.SharpDX.Core;
 using System;
 using System.Windows.Controls;
 
@@ -25,18 +26,21 @@ public partial class Plot3DPage : Page
 
         // Clean resources,
         // <see href="https://github.com/helix-toolkit/helix-toolkit/issues/1185">HelixToolkit GitHub</see>
-        (DataContext as IDisposable)?.Dispose();
-        view3D.DataContext = null;
-        //view3D.EffectsManager = null;
+        
+        var effectsManager = (DataContext as Plot3DViewModel)?.EffectsManager;
+        if (effectsManager != null)
+        {
+            Disposer.RemoveAndDispose(ref effectsManager);
+        }
+
+        //Disposer.RemoveAndDispose(ref effectsManager);
         //view3D.Items.Clear();
         //view3D.DataContext = null;
+        //view3D.EffectsManager = null;
+        //view3D.DataContext = null;
         //view3D.Dispose();
-        //view3D = null;
         //view3D.Detach();
-
-        //GC.Collect(2, GCCollectionMode.Forced);
-        //GC.Collect(2, GCCollectionMode.Forced);
-        //GC.WaitForFullGCComplete();
+        //view3D = null;
     }
 
     ~Plot3DPage()

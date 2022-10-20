@@ -14,7 +14,7 @@ using System.Runtime.Intrinsics.X86;
 
 namespace Helix.SharpDX.WPF.NavigationDemo.ViewModels;
 
-public partial class Plot3DViewModel : ObservableObject, IDisposable
+public partial class Plot3DViewModel : ObservableObject
 {
     public Plot3DViewModel()
     {
@@ -29,7 +29,7 @@ public partial class Plot3DViewModel : ObservableObject, IDisposable
             UpDirection = new Vector3D(0, 1, 0),
         };
 
-        _upDirection = new Vector3D(0, 1, 0);
+        //_upDirection = new Vector3D(0, 1, 0);
 
         // Model
         var mb = new MeshBuilder();
@@ -43,8 +43,6 @@ public partial class Plot3DViewModel : ObservableObject, IDisposable
     ~Plot3DViewModel()
     {
         System.Diagnostics.Trace.WriteLine("==== [Plot3DViewModel] Finalizer ====");
-
-        Dispose(false);
     }
 
     #region Properties
@@ -62,44 +60,6 @@ public partial class Plot3DViewModel : ObservableObject, IDisposable
     public MeshGeometry3D? Model { get; private set; }
     public Transform3D ModelTransform { get; private set; }
     public PhongMaterial ModelMaterial { get; private set; }
-
-    #endregion
-
-    #region IDisposable implementation
-
-    // Free unmanaged DirectX resources, 
-    // <see href="https://learn.microsoft.com/en-us/dotnet/api/system.idisposable">IDisposible</see>
-    // description for details.
-
-    private bool disposed = false;
-
-    public void Dispose()
-    {
-        System.Diagnostics.Trace.WriteLine("==== [Plot3DViewModel] Dispose ====");
-
-        Dispose(true);
-        //GC.SuppressFinalize(this);
-    }
-    
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!disposed)
-        {
-            // Dispose all managed resources
-            if (disposing)
-            {
-
-            }
-
-            // Cleanup all unmanaged resources
-            if (_effectsManager != null)
-            {
-                Disposer.RemoveAndDispose(ref _effectsManager);
-            }
-
-            disposed = true;
-        }
-    }
 
     #endregion
 }
